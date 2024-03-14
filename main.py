@@ -25,10 +25,10 @@ class user:
 
 def connect_db():
     return pymysql.connect(
-        database = "sports_aggregator",
-        user = "sjamesjr",
-        password = "250415031",
-        host = "10.100.33.60",
+        database = 'lfrancois_Sports',
+        user = 'settings.db_user',
+        password = 'settings.db_pass',
+        host = '10.100.33.60',
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
     )
