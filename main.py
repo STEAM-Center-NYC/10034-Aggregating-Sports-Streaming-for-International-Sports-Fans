@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for, g
+from dynaconf import Dynaconf
+
 import pymysql
 import pymysql.cursors
 from pprint import pprint as print 
 import flask_login
 
 app = Flask(__name__)
+
+settings= Dynaconf(
+    settings_file=('settings.toml')
+)
 
 class user:
     is_authenticated = True 
@@ -20,8 +26,8 @@ class user:
 def connect_db():
     return pymysql.connect(
         database = 'lfrancois_Sports',
-        user = 'lfrancois',
-        password = '231566837',
+        user = 'settings.db_user',
+        password = 'settings.db_pass',
         host = '10.100.33.60',
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
