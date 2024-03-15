@@ -50,8 +50,7 @@ def index():
     return render_template('landing.html.jinja')
 
 @app.route('/feed')
-
-def index():
+def feed():
     cursor = get_db().cursor()
     cursor.execute('SELECT * from `Videos` ORDER BY `Timestamp`')
     results = cursor.fetchall()
