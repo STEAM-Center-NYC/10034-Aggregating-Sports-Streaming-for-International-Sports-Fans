@@ -17,15 +17,15 @@ class user:
     is_anonymous = False
     is_active = True
     def __init__(self, id, username):
-        self.id = id 
         self.username = username 
+        self.id = id 
     def get_id(self):
         return str(self.id)
 
 
 def connect_db():
     return pymysql.connect(
-        database = 'lfrancois_Sports',
+        database = 'sports_aggregator',
         user = settings.db_user,
         password = settings.db_pass,
         host = '10.100.33.60',
@@ -47,10 +47,10 @@ def close_db(error):
 @app.route('/')
 
 
+
 @app.route('/feed')
 def feed():
     cursor = get_db().cursor()
-    cursor.execute('SELECT * from `Videos` ORDER BY `Timestamp`')
     results = cursor.fetchall()
     cursor.close()
     return render_template()
