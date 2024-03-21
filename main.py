@@ -45,12 +45,13 @@ def close_db(error):
         g.db.close() 
 
 @app.route('/')
+def index():
+        return render_template('landing.html.jinja')
 
 
 
 @app.route('/feed')
 def feed():
     cursor = get_db().cursor()
-    results = cursor.fetchall()
     cursor.close()
-    return render_template()
+    return render_template('stream.html.jinja')
