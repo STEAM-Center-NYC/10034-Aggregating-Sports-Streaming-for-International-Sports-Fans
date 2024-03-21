@@ -17,18 +17,18 @@ class user:
     is_anonymous = False
     is_active = True
     def __init__(self, id, username):
-        self.id = id 
         self.username = username 
+        self.id = id 
     def get_id(self):
         return str(self.id)
 
 
 def connect_db():
     return pymysql.connect(
-        database = 'sports_aggregator',
-        user = settings.db_user,
-        password = settings.db_pass,
-        host = '10.100.33.60',
+        database = "sports_aggregator",
+        user = "sjamesjr",
+        password = "250415031",
+        host = "10.100.33.60",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
     )
@@ -56,7 +56,6 @@ def post_feed():
 
 def index():
     cursor = get_db().cursor()
-    cursor.execute('SELECT * from `Videos` ORDER BY `Timestamp`')
     results = cursor.fetchall()
     cursor.close()
-    return render_template()
+    return render_template("feed.html.jinja")
