@@ -51,8 +51,8 @@ def post_feed():
     cursor = get_db().cursor()
     cursor.execute("""
     SELECT * FROM `Games` 
-        INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
-        INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
+    INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
+    INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
     """)
     results = cursor.fetchall()
     cursor.close()
