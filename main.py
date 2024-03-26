@@ -25,17 +25,10 @@ class user:
 
 def connect_db():
     return pymysql.connect(
-<<<<<<< HEAD
         database = 'lfrancois_Sports',
         user = 'settings.db_user',
         password = 'settings.db_pass',
         host = '10.100.33.60',
-=======
-        database = "sports_aggregator",
-        user = "sjamesjr",
-        password = "250415031",
-        host = "10.100.33.60",
->>>>>>> origin/Seans-Branch
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
     )
@@ -57,8 +50,6 @@ def index():
     return render_template('landing.html.jinja')
 
 @app.route('/feed')
-<<<<<<< HEAD
-=======
 def post_feed():
     cursor = get_db().cursor()
     cursor.execute("""
@@ -69,7 +60,6 @@ def post_feed():
     results = cursor.fetchall()
     cursor.close()
     return render_template("feed.html.jinja",Games=results)
->>>>>>> origin/Seans-Branch
 
 def index():
     cursor = get_db().cursor()
