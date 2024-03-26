@@ -49,10 +49,14 @@ def close_db(error):
 @app.route('/feed')
 def post_feed():
     cursor = get_db().cursor()
-    cursor.execute('SELECT * from `Games` ORDER BY `datetime`')
+    cursor.execute("""
+    SELECT * FROM `Games` 
+        INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
+        INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
+    """)
     results = cursor.fetchall()
     cursor.close()
-    return render_template("feed.html.jinja",post_list=results)
+    return render_template("feed.html.jinja",Games=results)
 
 def index():
     cursor = get_db().cursor()
