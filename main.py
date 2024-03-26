@@ -25,9 +25,9 @@ class user:
 
 def connect_db():
     return pymysql.connect(
-        database = 'sports_aggregator',
-        user = settings.db_user,
-        password = settings.db_pass,
+        database = 'lfrancois_Sports',
+        user = 'settings.db_user',
+        password = 'settings.db_pass',
         host = '10.100.33.60',
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
@@ -45,13 +45,15 @@ def close_db(error):
         g.db.close() 
 
 @app.route('/')
+
 def index():
-        return render_template('landing.html.jinja')
-
-
+    return render_template('landing.html.jinja')
 
 @app.route('/feed')
-def feed():
+
+def index():
     cursor = get_db().cursor()
+    cursor.execute('SELECT * from `Videos` ORDER BY `Timestamp`')
+    results = cursor.fetchall()
     cursor.close()
-    return render_template('stream.html.jinja')
+    return render_template()
