@@ -47,7 +47,7 @@ def close_db(error):
 @app.route('/')
 
 def index():
-    return render_template('landing.html.jinja')
+    return render_template('feed.html.jinja')
 
 @app.route('/feed')
 def post_feed():
