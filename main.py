@@ -55,8 +55,10 @@ def post_feed():
     INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
     """)
     results = cursor.fetchall()
+    cursor.execute(""" SELECT * FROM `Sites` """)
+    results2 = cursor.fetchall()
     cursor.close()
-    return render_template("feed.html.jinja",Games=results)
+    return render_template("feed.html.jinja",Games=results,Sites=results2)
 
 def index():
     cursor = get_db().cursor()
