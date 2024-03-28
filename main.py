@@ -51,15 +51,17 @@ def close_db(error):
    if hasattr(g, 'db'):
        g.db.close()
 
-@app.route('/')
-
 @app.route('/stream')
+
+@app.route('/')
 def post_feed():
     cursor = get_db().cursor()
     cursor.execute('SELECT * from `Games` ORDER BY `datetime`')
     results = cursor.fetchall()
+    cursor.execute(""" SELECT * FROM `Sites` """)
+    results2 = cursor.fetchall()
     cursor.close()
-    return render_template("stream.html.jinja",post_list=results)
+    return render_template("stream.html.jinja",Games=results)
 
 def index():
    cursor = get_db().cursor()
