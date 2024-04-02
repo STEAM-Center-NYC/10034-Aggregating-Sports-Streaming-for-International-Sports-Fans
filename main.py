@@ -65,3 +65,11 @@ def index():
     results = cursor.fetchall()
     cursor.close()
     return render_template("feed.html.jinja")
+
+@app.route('/Profile')
+def post_profile():
+    cursor = get_db().cursor()
+    cursor.execute("""
+    SELECT * FROM `User`
+    
+    """)
