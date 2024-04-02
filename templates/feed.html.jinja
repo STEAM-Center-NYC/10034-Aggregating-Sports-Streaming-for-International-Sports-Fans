@@ -173,6 +173,41 @@
     .bd-mode-toggle .dropdown-menu .active .bi {
       display: block !important;
     }
+
+    .box {
+                background-color: black;
+                height: 20vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .box a {
+                padding: 15px;
+                background-color: #fff;
+                border-radius: 3px;
+                text-decoration: none;
+            }
+
+            .modal {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: none;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .content {
+                position: relative;
+                background: white;
+                padding: 1em 2em;
+                border-radius: 4px;
+            }
+
+            .modal:target {
+                display: flex;
+            }
   </style>
 
 
@@ -181,6 +216,46 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
+
+<header data-bs-theme="dark">
+<div class="collapse text-bg-dark" id="navbarHeader">
+<a href="#" class="navbar-brand d-flex align-items-center">
+    
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <strong>Album</strong>
+    </a>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-7 py-4">
+        <h4>Feed</h4>
+        <p class="text-body-secondary">Explore the worlds thoughts and ideas here.</p>
+      </div>
+      <div class="col-sm-4 offset-md-1 py-4">
+        <h4>Profile</h4>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Follow on Twitter</a></li>
+          <li><a href="#" class="text-white">Like on Facebook</a></li>
+          <li><a href="#" class="text-white">Email me</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="navbar navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a href="#" class="navbar-brand d-flex align-items-center">
+    
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+     
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</div>
+</header>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
@@ -239,37 +314,32 @@
 
 
 
- <header data-bs-theme="dark">
-<div class="collapse text-bg-dark" id="navbarHeader">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8 col-md-7 py-4">
-        <h4>Feed</h4>
-        <p class="text-body-secondary">Explore the worlds thoughts and ideas here.</p>
-      </div>
-      <div class="col-sm-4 offset-md-1 py-4">
-        <h4>Profile</h4>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Follow on Twitter</a></li>
-          <li><a href="#" class="text-white">Like on Facebook</a></li>
-          <li><a href="#" class="text-white">Email me</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="navbar navbar-dark bg-dark shadow-sm">
-  <div class="container">
-    <a href="#" class="navbar-brand d-flex align-items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      <strong>Album</strong>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</div>
-</header>
+ <div class="box">
+            <a href="#popup-box"
+                >Game Live Now!!</a
+            >
+        </div>
+        <div id="popup-box" class="modal">
+            <div class="content">
+                <h1 style="color: green">
+                   <a href="https://www.nba.com/game/0022301050?ko_click_id=ko_fz7l1q80tweajc8tu"><img src="data:image/jpeg;base64,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"  alt="Nets vs Wizards game"></a>
+                </h1>
+                <p>Watch Now!</p>
+                <a
+                    href="#"
+                    style="
+                        position: absolute;
+                        top: 3px;
+                        right: 3px;
+                        color: #fe0606;
+                        font-size: 10px;
+                        text-decoration: none;
+                    "
+                    >&times;</a
+                >
+            </div>
+        </div>
+
 
 
 
@@ -340,8 +410,7 @@
   <p class="float-end mb-1">
     <a href="#">Back to top</a>
   </p>
-  <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-  <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
+  
 </div>
 </footer>
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -351,6 +420,9 @@
 
   </body>
 </html>
+
+
+
 
 
 

@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, g
 from dynaconf import Dynaconf
+from datetime import date
+from datetime import datetime
 
 import pymysql
 import pymysql.cursors
@@ -25,9 +27,9 @@ class user:
 
 def connect_db():
     return pymysql.connect(
-        database = 'lfrancois_Sports',
-        user = 'settings.db_user',
-        password = 'settings.db_pass',
+        database = 'sports_aggregator',
+        user = 'lfrancois',
+        password = '231566837',
         host = '10.100.33.60',
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
@@ -69,3 +71,9 @@ def index():
     results = cursor.fetchall()
     cursor.close()
     return render_template()
+
+def noti():
+    cursor = get_db().cursor()
+    cursor.execute("SELECT datetime('now', 'localtime')")
+    current_datetime = cursor.fetchone()[0]
+    print("Current Date and Time from the database:", current_datetime)
