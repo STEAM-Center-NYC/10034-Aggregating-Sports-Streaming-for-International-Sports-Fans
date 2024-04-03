@@ -7,12 +7,14 @@ from pprint import pprint as print
 import flask_login
 
 app = Flask(__name__)
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
 
 settings= Dynaconf(
     settings_file=('settings.toml')
 )
 
-class user:
+class User:
     is_authenticated = True 
     is_anonymous = False
     is_active = True
@@ -22,15 +24,47 @@ class user:
     def get_id(self):
         return str(self.id)
 
+@app.route('/signin',methods =['GET','POST'])
+def Signin():
+ if request.method == 'POST':
+    Username = request.form["Username"]
+    Password = request.form["Password"]
+    cursor =get_db().cursor()
+    cursor.execute(f"SELECT * FROM `Users` WHERE `Username` = '{Username}'")   
+    User = cursor.fetchone()
+    {User['Password']}
+    if Password == User["Password"]:
+        user =load_user(User['ID'])
+        flask_login.login_user(user)
+        return redirect('/feed')
+ return render_template("signin.html.jinja")
+
+@app.route('/signup', methods=['GET', 'POST'])
+def Signup():
+ if request.method == 'POST':
+    Username = request.form["Username"]
+    Password = request.form["Password"]
+    Name = request.form["Name"]
+    User_Bio = request.form["User_Bio"]
+    Pronouns = request.form["Pronouns"]
+    Birthday = request.form["Birthday"]
+    Email = request.form["Email"]
+    cursor =get_db().cursor()
+    cursor.execute(f"INSERT INTO `Users` (`Username`,`Password`,`Name`,`Pronouns`,`User_Bio`,`Birthday`,`Email`) VALUES ('{Username}','{Password}','{Name}','{User_Bio}','{Pronouns}','{Birthday}','{Email}')")
+    cursor.close()
+    get_db().commit()
+    return redirect("/Signin")
+ return render_template("signup.html.jinja")
 
 def connect_db():
     return pymysql.connect(
-        database = "sports_aggregator",
-        user = "sjamesjr",
-        password = "250415031",
+        db_name="Sports_Aggregator",
+        db_user="sjamesjr",
+        db_pass="250415031",
         host = "10.100.33.60",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
+
     )
 def get_db():
     '''Opens a new database connection per request.'''        
@@ -67,9 +101,20 @@ def index():
     return render_template("feed.html.jinja")
 
 @app.route('/Profile')
+@flask_login.login_required
 def post_profile():
+    UserID = flask_login.current_user.id
     cursor = get_db().cursor()
-    cursor.execute("""
-    SELECT * FROM `User`
-    
-    """)
+    cursor.execute(f"""
+    SELECT * FROM `User`  WHERE `UserID` = '{UserID}' """)
+
+@login_manager.user_loader
+def load_user(user_id):
+   cursor = get_db().cursor()
+   cursor.execute(f"SELECT * FROM `User` WHERE `id` = {user_id}")
+   result = cursor.fetchone()
+   cursor.close()
+   get_db().commit()
+   if result is None:
+    return None
+   return User(result["UserID"], result["Username"])
