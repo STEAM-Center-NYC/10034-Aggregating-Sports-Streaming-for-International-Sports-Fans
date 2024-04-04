@@ -7,6 +7,7 @@ from pprint import pprint as print
 import flask_login
 
 app = Flask(__name__)
+app.secret_key = "nugget_secret_recipe"
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
@@ -30,7 +31,7 @@ def Signin():
     Username = request.form["Username"]
     Password = request.form["Password"]
     cursor =get_db().cursor()
-    cursor.execute(f"SELECT * FROM `Users` WHERE `Username` = '{Username}'")   
+    cursor.execute(f"SELECT * FROM `User` WHERE `Username` = '{Username}'")   
     User = cursor.fetchone()
     {User['Password']}
     if Password == User["Password"]:
@@ -46,21 +47,19 @@ def Signup():
     Password = request.form["Password"]
     Name = request.form["Name"]
     User_Bio = request.form["User_Bio"]
-    Pronouns = request.form["Pronouns"]
-    Birthday = request.form["Birthday"]
     Email = request.form["Email"]
     cursor =get_db().cursor()
-    cursor.execute(f"INSERT INTO `Users` (`Username`,`Password`,`Name`,`Pronouns`,`User_Bio`,`Birthday`,`Email`) VALUES ('{Username}','{Password}','{Name}','{User_Bio}','{Pronouns}','{Birthday}','{Email}')")
+    cursor.execute(f"INSERT INTO `User` (`Username`,`Password`,`Name`,`User_Bio`,`Email`) VALUES ('{Username}','{Password}','{Name}','{User_Bio}','{Email}')")
     cursor.close()
     get_db().commit()
-    return redirect("/Signin")
+    return redirect("/signin")
  return render_template("signup.html.jinja")
 
 def connect_db():
     return pymysql.connect(
-        db_name="Sports_Aggregator",
-        db_user="sjamesjr",
-        db_pass="250415031",
+        database="sports_aggregator",
+        user ="sjamesjr",
+        password="250415031",
         host = "10.100.33.60",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
@@ -103,10 +102,11 @@ def index():
 @app.route('/Profile')
 @flask_login.login_required
 def post_profile():
-    UserID = flask_login.current_user.id
+    ID = flask_login.current_user.id
     cursor = get_db().cursor()
     cursor.execute(f"""
-    SELECT * FROM `User`  WHERE `UserID` = '{UserID}' """)
+    SELECT * FROM `User`  WHERE `ID` = '{ID}' """)
+    return render_template ("Profile.html.jinja")
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -117,4 +117,4 @@ def load_user(user_id):
    get_db().commit()
    if result is None:
     return None
-   return User(result["UserID"], result["Username"])
+   return User(result["ID"], result["Username"])
