@@ -6,6 +6,7 @@ import pymysql.cursors
 from pprint import pprint as print 
 import flask_login
 
+
 app = Flask(__name__)
 app.secret_key = "nugget_secret_recipe"
 login_manager = flask_login.LoginManager()
