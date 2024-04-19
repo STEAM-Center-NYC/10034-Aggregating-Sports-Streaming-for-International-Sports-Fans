@@ -59,8 +59,8 @@ def Signup():
 def connect_db():
     return pymysql.connect(
         database="sports_aggregator",
-        user ="sjamesjr",
-        password="250415031",
+        user ="svassell2",
+        password="228426979",
         host = "10.100.33.60",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
