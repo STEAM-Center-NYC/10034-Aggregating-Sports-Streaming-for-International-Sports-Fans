@@ -107,7 +107,10 @@ def post_profile():
     cursor = get_db().cursor()
     cursor.execute(f"""
     SELECT * FROM `User`  WHERE `ID` = '{ID}' """)
-    return render_template ("Profile.html.jinja")
+    results = cursor.fetchone()
+    cursor.execute(f"SELECT * FROM `FTeams` INNER JOIN `Teams` ON `FTeams`.TeamID = Teams.`ID` WHERE `UserID` = {ID}")
+    result2= cursor.fetchall()
+    return render_template ("Profile.html.jinja",User=results,FTeams=result2)
 
 @login_manager.user_loader
 def load_user(user_id):
