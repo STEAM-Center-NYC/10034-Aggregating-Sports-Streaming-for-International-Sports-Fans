@@ -38,7 +38,7 @@ def Signin():
     if Password == User["Password"]:
         user =load_user(User['ID'])
         flask_login.login_user(user)
-        return redirect('/feed')
+        return redirect('/stream')
  return render_template("signin.html.jinja")
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -59,8 +59,8 @@ def Signup():
 def connect_db():
     return pymysql.connect(
         database="sports_aggregator",
-        user ="sjamesjr",
-        password="250415031",
+        user ="svassell2",
+        password="228426979",
         host = "10.100.33.60",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
@@ -80,25 +80,25 @@ def close_db(error):
 
 @app.route('/')
 
-@app.route('/feed')
-def post_feed():
+@app.route('/stream')
+def post_stream():
     cursor = get_db().cursor()
     cursor.execute("""
     SELECT * FROM `Games` 
     INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
-    INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
+    INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`;
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
     results2 = cursor.fetchall()
     cursor.close()
-    return render_template("feed.html.jinja",Games=results,Sites=results2)
+    return render_template("stream.html.jinja",Games=results,Sites=results2)
 
 def index():
     cursor = get_db().cursor()
     results = cursor.fetchall()
     cursor.close()
-    return render_template("feed.html.jinja")
+    return render_template("stream.html.jinja")
 
 @app.route('/Profile')
 @flask_login.login_required
