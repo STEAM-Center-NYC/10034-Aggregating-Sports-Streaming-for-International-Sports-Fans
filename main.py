@@ -94,6 +94,24 @@ def post_feed():
     cursor.close()
     return render_template("feed.html.jinja",Games=results,Sites=results2)
 
+@app.route('/FTeams/<int:Team_index>',methods=['POST'])
+def todo_complete(Team_index):
+    ID = flask_login.current_user.id
+    cursor = get_db().cursor()
+    cursor.execute(f"INSERT INTO `FTeams`(UserID,TeamID) VALUES ({ID},{Team_index});")
+    cursor.close()
+    get_db().cursor()
+    return redirect('/')
+
+
+@app.route('/FTeams')
+def post_FvfszTeams():
+    cursor = get_db().cursor()
+    cursor.execute("SELECT * FROM `Teams`")
+    results = cursor.fetchall()
+    cursor.close()
+    return render_template("favorite.html.jinja",Teams=results)
+
 def index():
     cursor = get_db().cursor()
     results = cursor.fetchall()
