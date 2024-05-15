@@ -112,6 +112,16 @@ def post_FvfszTeams():
     cursor.close()
     return render_template("favorite.html.jinja",Teams=results)
 
+
+
+@app.route('/FTeams')
+def remove_FvfszTeams():
+    cursor = get_db().cursor()
+    cursor.execute("DELETE * FROM `Teams`")
+    results = cursor.fetchall()
+    cursor.close()
+    return render_template("favorite.html.jinja",Teams=results)
+
 def index():
     cursor = get_db().cursor()
     results = cursor.fetchall()
@@ -129,6 +139,15 @@ def post_profile():
     cursor.execute(f"SELECT * FROM `FTeams` INNER JOIN `Teams` ON `FTeams`.TeamID = Teams.`ID` WHERE `UserID` = {ID}")
     result2= cursor.fetchall()
     return render_template ("Profile.html.jinja",User=results,FTeams=result2)
+
+@app.route('/Landing')
+def landing():
+    cursor = get_db().cursor()
+    results = cursor.fetchall()
+    cursor.close()
+    return render_template("Landing.html.jinja")
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
