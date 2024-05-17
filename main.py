@@ -36,7 +36,7 @@ def Signin():
     User = cursor.fetchone()
     {User['Password']}
     if Password == User["Password"]:
-        user =load_user(User['ID'])
+        user = load_user(User['ID'])
         flask_login.login_user(user)
         return redirect('/feed')
  return render_template("signin.html.jinja")
@@ -59,8 +59,8 @@ def Signup():
 def connect_db():
     return pymysql.connect(
         database="sports_aggregator",
-        user ="sjamesjr",
-        password="250415031",
+        user ="svassell2",
+        password="228426979",
         host = "10.100.33.60",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=True
@@ -112,7 +112,8 @@ def post_FvfszTeams():
     cursor.close()
     return render_template("favorite.html.jinja",Teams=results)
 
-def index():
+
+def index(): 
     cursor = get_db().cursor()
     results = cursor.fetchall()
     cursor.close()
@@ -129,6 +130,11 @@ def post_profile():
     cursor.execute(f"SELECT * FROM `FTeams` INNER JOIN `Teams` ON `FTeams`.TeamID = Teams.`ID` WHERE `UserID` = {ID}")
     result2= cursor.fetchall()
     return render_template ("Profile.html.jinja",User=results,FTeams=result2)
+
+@app.route('/FTRemove')
+@flask_login.login_required
+def post_FTRemove():
+ return render_template ("FTRemove.html.jinja")
 
 @login_manager.user_loader
 def load_user(user_id):
