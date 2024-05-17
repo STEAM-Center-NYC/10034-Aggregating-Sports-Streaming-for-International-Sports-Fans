@@ -56,7 +56,7 @@
     }
 
     .btn {
-      background-color: #8c7851 !important;
+      background-color: #000000 !important;
       color: #fffffe !important;
     }
 
@@ -266,8 +266,8 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-8 col-md-7 py-4">
-            <h4>Feed</h4>
-            <p class="text-body-secondary">Explore the worlds thoughts and ideas here.</p>
+            <h4>Favorites</h4>
+            <p class="text-body-secondary">Favorite Teams here, all your favorite teams will be tracked and saved on your profile and you'll be notified immediately on all upcoming games for your favorite teams.</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <h4>Profile</h4>
@@ -285,9 +285,6 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
-            viewBox="0 0 24 24">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
           </svg>
@@ -335,7 +332,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <form method="POST" action="/FTeams/{{Team['ID']}}">
-                      <input class="btn btn-secondary" type="submit" value="Favorite Team">
+                      <input class="btn btn-secondary" type="submit" value="Favorite Team" style="background-color:#000000">
                     </form>
                     <div class="dropdown">
 
@@ -361,7 +358,7 @@
   <footer class="text-body-secondary py-5">
     <div class="container">
       <p class="float-end mb-1">
-        <a href="#">Back to top</a>
+        <a href="#" class="btn btn-primary btn-lg ">Back to top</a>
       </p>
      
           
