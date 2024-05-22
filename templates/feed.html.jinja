@@ -21,7 +21,10 @@
 
 
 
-
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 
 
 
@@ -51,7 +54,7 @@
 
   <style>
     body {
-      background-color: !important;
+      background-color: black;
       color: !important;
     }
 
@@ -175,6 +178,8 @@
     .bd-mode-toggle .dropdown-menu .active .bi {
       display: block !important;
     }
+
+
   </style>
 
 
@@ -271,13 +276,18 @@
           </div>
              <div class="col-sm-8 col-md-7 py-4">
             <h4>Feed</h4>
-           <p class="text-body-secondary">Welcome to the feed page, here you will find all upcoming games and matchups, you can find easy access to the streaming services by clicking on the dropdown, this is streaming made easy. Games will automatically be updated and you can even see up to date scores.</p>
+           <p class="text-body-secondary" class="animate__animated animate__bounce">Welcome to the feed page, here you will find all upcoming games and matchups, you can find easy access to the streaming services by clicking on the dropdown, this is streaming made easy. Games will automatically be updated and you can even see up to date scores.</p>
           </div>
             <ul class="list-unstyled">
-              <li><a href="/signin" class="text-white">Sign In</a></li>
-              <li><a href="/signup" class="text-white">Sign Up</a></li>
-              <li><a href="/Profile" class="text-white">Profile</a></li>
-              <li><a href="/FTeams" class="text-white">Favorite Teams</a></li>
+              <li><b><a href="/Profile" class="text-white">Profile</a></li></b>
+              <li><b><a href="/FTeams" class="text-white">Favorite Teams</a></li></b>
+              <br>
+             <a class="btn btn-primary btn-lg "  href="/signup" role="button" style="height:50px;width:120px" class="text-white">Sign Up</a>
+              
+            <a class="btn btn-primary btn-lg" href="/signin" role="button" style="height:50px;width:120px">Sign In</a>
+             
+
+              
             </ul>
           </div>
         </div>
@@ -308,7 +318,7 @@
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light"><b> Watching sports made easy, find places to watch sports</h1></b>
+          <h1 class="fw-light" class="animate__animated animate__bounce"><b> Watching sports made easy, find places to watch sports</h1></b>
 
     
 <br>
@@ -323,14 +333,13 @@
       </div>
     </section>
     <div class="text-center">
-    {% for Leauge in Leauges %}
-         <a href="/Leauge/{{Leauge.ID}}"> <img src="{{Leauge.Logo}}" height="100" width="120"></a>
+    {% for League in Leagues %}
+         <a href="/League/{{League.ID}}"> <img src="{{League.Logo}}" height="100" width="120" style="border: black;"></a>
           {%endfor%}
           <br>
           <br>
           <br>
-            <a class="btn btn-primary btn-lg "  href="/signup" role="button" style="height:50px;width:120px">Sign Up</a> <a class="btn btn-primary btn-lg" href="/signin" role="button" style="height:50px;width:120px">Sign In</a>
-          </div>
+           
     <div class="album py-5 ">
       <div class="container">
 
