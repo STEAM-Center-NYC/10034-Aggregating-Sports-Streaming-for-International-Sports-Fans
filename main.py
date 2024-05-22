@@ -91,10 +91,10 @@ def post_feed():
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
     results2 = cursor.fetchall()
-    cursor.execute(""" SELECT * FROM `Leauge` """)
+    cursor.execute(""" SELECT * FROM `League` """)
     results3=cursor.fetchall()
     cursor.close()
-    return render_template("feed.html.jinja",Games=results,Sites=results2,Leauges=results3)
+    return render_template("feed.html.jinja",Games=results,Sites=results2,Leagues=results3)
 
 @app.route('/FTeams/<int:Team_index>',methods=['POST'])
 def todo_complete(Team_index):
@@ -143,20 +143,20 @@ def load_user(user_id):
     return None
    return User(result["ID"], result["Username"])
 
-@app.route('/Leauge/<int:Leauge_index>')
-def todo_delete(Leauge_index):
+@app.route('/League/<int:League_index>')
+def todo_delete(League_index):
     cursor = get_db().cursor()
     cursor.execute(f"""
     SELECT * FROM `Games` 
     INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
     INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`
-    WHERE t1.`LeaugeID` = {Leauge_index}
+    WHERE t1.`LeagueID` = {League_index}
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
     results2 = cursor.fetchall()
-    cursor.execute(""" SELECT * FROM `Leauge` """)
+    cursor.execute(""" SELECT * FROM `League` """)
     results3=cursor.fetchall()
     cursor.close()
-    return render_template("blah.html.jinja",Games=results,Sites=results2,Leauges=results3)
+    return render_template("blah.html.jinja",Games=results,Sites=results2,Leagues=results3)
    
