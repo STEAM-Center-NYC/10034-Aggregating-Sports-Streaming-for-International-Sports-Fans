@@ -55,7 +55,7 @@ while True:
     # In the results variable is set to save the page.findAll expression which what it does is that it searches the page variable based on
     # the requirements that you give it, for example here the requirements is that the tag must be a div and the data anchor id to be
     # MenuItem. findAll what it does is that it searches the entire document while find only searches for the first one.
-    results = page.findAll('div', {'data-anchor-id' : "sites"})
+    results = page.findAll('div', {'data-anchor-id' : ""})
     # .extend saves all input to the divs variable from before the while loop.
     divs.extend(results)
     print(f'{x} of {l} done.')
@@ -89,43 +89,61 @@ connection = pymysql.connect(
     host = db_link,
     cursorclass = pymysql.cursors.DictCursor
 )
-
 # limit variable and the if statement are just a failed attempt at stopping the code from replicating data by having it check if the data already exist.
 limit = []
-for users in divs:
-    limit.extend(users)
-    if users in limit:
+subItems = 0
+failed_attemps = 0
+
+for items in divs:
+    # the next for segments are using the .find from beautifulsoup as explained before to try and filter out the items by using a attribute unique for them.
+    # .contents is used to only gather the actual text and not the code with text.
+    item_id = items.attrs['data-item-id']
+
+    if item_id in limit:
         continue
     else:
-        # the next for segments are using the .find from beautifulsoup as explained before to try and filter out the items by using a attribute unique for them.
-        # .contents is used to only gather the actual text and not the code with text.
-        Item_Name = users.find('h3', {'data-telemetry-id' : "sites"})
-        sites_name = Item_Name.contents
+        try:
+            print(item_id)
+            limit.append(item_id)
 
-        Price = users.find('span', {'data-anchor-id' : "sites"})
-        item_price = Price.contents
-        item_price = [item.replace('$', '') for item in item_price]
+            # 10038 find code
+            # Item_Name = items.find('h3', {'data-telemetry-id' : "storeMenuItem.title"})
+            # item_name = Item_Name.contents
 
-        Picture = users.find('img')
-        item_picture = Picture.attrs['src']
+            # Price = items.find('span', {'data-anchor-id' : "StoreMenuItemPrice"})
+            # item_price = Price.contents
+            # item_price = [item.replace('$', '') for item in item_price]
 
-        Des = users.find('span', {'data-telemetry-id' : "sites"})
-        item_des = Des.contents
+            # Picture = items.find('img')
+            # item_picture = Picture.attrs['src']
 
-        cursor = connection.cursor()
-        # this code is to make the bot automatically upload the data into the database. For now its manual input on restaurant and category but hopefully we could get the category automated.
-        cursor.execute(f'INSERT INTO `sites` (`sites, `teams`, `leagues`, `streaming`, `user`) VALUES ("{sites_name[0]}", "{item_picture}", "1", "{item_des[0]}", "1");')
-        connection.commit()
-        # this execute is to be able to get the id of the item uploaded to be able to assign the id on the price.
-        cursor.execute(f"SELECT `leagues` FROM `sites` ORDER BY `user_id` DESC;")
-        connection.commit()
-        id = cursor.fetchone()
-        result = id['user_id']
-        # this execute uploads the price and also uses the id collected before in order to connect it with the item.
-        cursor.execute(f'INSERT INTO `sites` (`price_value`, `item_id`, `service_id`) VALUES ("{item_price[0]}", "{result}","1")')
-        cursor.close()
-        connection.commit()
+            # Des = items.find('span', {'data-telemetry-id' : "storeMenuItem.subtitle"})
+            # item_des = Des.contents
 
-print(f'Data has been submitted to the Database. Please check if data is correct on: {db_link}')
+            
+
+            cursor = connection.cursor()
+            # this code is to make the bot automatically upload the data into the database. For now its manual input on restaurant and category but hopefully we could get the category automated.
+            cursor.execute(f'INSERT INTO `sites` (`sites_name`, `picture`, `team_id`, `user_id`) VALUES ("{sites_name[0]}", "{site_picture}", "1", "{sites_des[0]}", "1");')
+            connection.commit()
+            # this execute is to be able to get the id of the item uploaded to be able to assign the id on the price.
+            cursor.execute(f"SELECT `item_id` FROM `items` ORDER BY `item_id` DESC;")
+            connection.commit()
+            id = cursor.fetchone()
+            result = id['item_id']
+            # this execute uploads the price and also uses the id collected before in order to connect it with the item.
+            cursor.execute(f'INSERT INTO `price` (`price_value`, `item_id`, `service_id`) VALUES ("{item_price[0]}", "{result}","1")')
+            cursor.close()
+            connection.commit()
+            subItems+=1
+        except:
+            failed_attemps+=1
+            pass
+
+print()
+if failed_attemps > 0:
+    print(f'There was a total of {failed_attemps} failed attemps for submitted items!')
+print()
+print(f'Total of {subItems} items has been submitted to the Database. Please check if data is correct on: https://{db_link}')
 
 driver.quit()
