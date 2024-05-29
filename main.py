@@ -84,19 +84,21 @@ def close_db(error):
 def post_feed():
     cursor = get_db().cursor()
     cursor.execute("""
-    SELECT * FROM `Games` 
-    INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
-    INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
+        SELECT * FROM `Games` 
+        INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
+        INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`
+        LEFT JOIN `Leaugesite` ON t1.LeaugeID =  Leaugesite.LeaugeID
+        LEFT JOIN `Sites` ON  Leaugesite.SiteID = Sites.ID
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
     results2 = cursor.fetchall()
-    cursor.execute(""" SELECT * FROM `Leauge` """)
+    cursor.execute(""" SELECT * FROM `League` """)
     results3=cursor.fetchall()
     cursor.close()
-    return render_template("feed.html.jinja",Games=results,Sites=results2,Leauges=results3)
+    return render_template("feed.html.jinja",Games=results,Sites=results2,Leagues=results3)
 
-@app.route('/FTeams/<int:Team_index>',methods=['POST'])
+@app.route('/FTeams/<int:Team_index>', methods=['POST'])
 def todo_complete(Team_index):
     ID = flask_login.current_user.id
     cursor = get_db().cursor()
@@ -143,20 +145,24 @@ def load_user(user_id):
     return None
    return User(result["ID"], result["Username"])
 
-@app.route('/Leauge/<int:Leauge_index>')
-def todo_delete(Leauge_index):
+@app.route('/League/<int:League_index>')
+def todo_delete(League_index):
     cursor = get_db().cursor()
     cursor.execute(f"""
     SELECT * FROM `Games` 
     INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
     INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`
-    WHERE t1.`LeaugeID` = {Leauge_index}
+    LEFT JOIN `Leaugesite` ON t1.LeaugeID =  Leaugesite.LeaugeID
+    LEFT JOIN `Sites` ON  Leaugesite.SiteID = Sites.ID
+    WHERE t1.`LeaugeID` = {League_index}
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
     results2 = cursor.fetchall()
-    cursor.execute(""" SELECT * FROM `Leauge` """)
+    cursor.execute(""" SELECT * FROM `League` """)
     results3=cursor.fetchall()
+    cursor.execute(f""" SELECT * FROM `League` WHERE `ID` = {League_index}""")
+    results4=cursor.fetchone()
     cursor.close()
-    return render_template("blah.html.jinja",Games=results,Sites=results2,Leauges=results3)
+    return render_template("blah.html.jinja",Games=results,Sites=results2,Leagues=results3,Leaguestuff=results4)
    

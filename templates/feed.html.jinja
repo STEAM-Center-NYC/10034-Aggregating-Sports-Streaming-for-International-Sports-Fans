@@ -261,27 +261,22 @@
 
 
 
-  <header data-bs-theme="dark">
-    <div class="collapse text-bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4>Profile</h4>
-            <ul class="list-unstyled">
-              <li><a href="/signin" class="text-white">Sign In</a></li>
-              <li><a href="/signup" class="text-white">Sign Up</a></li>
-              <li><a href="/Profile" class="text-white">Profile</a></li>
-              <li><a href="/FTeams" class="text-white">Favorite Teams</a></li>
-            </ul>
-          </div>
-        </div>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Sports World</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      <a class="nav-link" href="/FTeams">Teams</a>
+      <a class="nav-link" href="/Profile">Profile</a>
+      <a class="nav-link" href="/signin">Sign in</a>
+      <a class="nav-link" href="/signup">Sign Up</a>
       </div>
     </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
+  </div>
+</nav>
         
         
         </a>
@@ -319,8 +314,8 @@
       </div>
     </section>
     <div class="text-center">
-    {% for Leauge in Leauges %}
-         <a href="/Leauge/{{Leauge.ID}}"> <img src="{{Leauge.Logo}}" height="65"></a>
+    {% for League in Leagues %}
+         <a href="/League/{{League.ID}}"> <img src="{{League.Logo}}" height="65"></a>
           {%endfor%}
           </div>
     <div class="album py-5 ">
@@ -332,7 +327,8 @@
 
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {% for game in Games %}
+          {% for id, sites in Games | groupby('ID') %}
+          {% set game = sites[0] %}
           <div class="col">
             <div class="card shadow-sm">
             <div class="text-center">
@@ -353,8 +349,8 @@
                         </svg>
                       </button>
                       <ul class="dropdown-menu">
-                        {% for Site in Sites %}
-                        <li><a class="dropdown-item" href="{{Site["URL"]}}"><img src="{{Site["Logo"]}}" width="50"></a> </li>
+                        {% for Site in sites %}
+                        <li><a class="dropdown-item" href="{{Site["URL"]}}"><img src="{{Site["Sites.Logo"]}}" width="50"></a> </li>
                       
                         {%endfor%}
                       </ul>
