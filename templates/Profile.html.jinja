@@ -177,7 +177,7 @@
         <div class="col-md-5 mx-left">
           <p class="lead"></p>
           <div>
-            <img src="{{User["Pfp"] }}" class="rounded-circle" alt="User Proifle" width="250" height="250">
+            <img src="{{User["Pfp"]}}" class="rounded-circle" alt="User Proifle" width="250" height="250">
             <h1>{{User["Username"] }}</h1>
             <h4>{{User["User_Bio"] }}</h4>
           </div>
@@ -187,8 +187,8 @@
           <h2>Favorite Teams</h2>
           {% for Team in FTeams %}
           <h5> {{Team["Team"]}}</h5><img src="{{Team["Logo"]}}" width="100"> 
-           <form method="POST" action="/FTRemove/{{Team['ID']}}">
-           <input class="btn btn-secondary" type="submit" value="Remove Team">
+           <form method="Post" action="/FTRemove/{{Team['ID']}}">
+           <input class="button-style" type="submit" value="Remove Team">
            </form>
           {%endfor%}
         </div>

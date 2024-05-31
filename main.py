@@ -134,7 +134,7 @@ def post_profile():
 @app.route('/FTRemove')
 @flask_login.login_required
 def post_FTRemove():
- return render_template ("profile.html.jinja")
+ return render_template ("FTRemove.html.jinja")
 
 @login_manager.user_loader
 def load_user(user_id):
