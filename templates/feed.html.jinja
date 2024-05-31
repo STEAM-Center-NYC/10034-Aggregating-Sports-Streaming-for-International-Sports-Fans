@@ -53,9 +53,15 @@
 
 
   <style>
+  
+
+  
     body {
-      background-color: black;
-      color: !important;
+      background-image: url("/static/image.png") ;
+      background-color: !important;
+      color: white !important;
+      background-size: 5000px 2500px ;
+      font-family: "Rowdies", sans-serif  !important;
     }
 
     .btn {
@@ -184,9 +190,16 @@
 
 
 
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -268,34 +281,22 @@
 
 
 
-  <header data-bs-theme="dark">
-    <div class="collapse text-bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-          </div>
-             <div class="col-sm-8 col-md-7 py-4">
-            <h4>Feed</h4>
-           <p class="text-body-secondary" class="animate__animated animate__bounce">Welcome to the feed page, here you will find all upcoming games and matchups, you can find easy access to the streaming services by clicking on the dropdown, this is streaming made easy. Games will automatically be updated and you can even see up to date scores.</p>
-          </div>
-            <ul class="list-unstyled">
-              <li><b><a href="/Profile" class="text-white">Profile</a></li></b>
-              <li><b><a href="/FTeams" class="text-white">Favorite Teams</a></li></b>
-              <br>
-             <a class="btn btn-primary btn-lg "  href="/signup" role="button" style="height:50px;width:120px" class="text-white">Sign Up</a>
-              
-            <a class="btn btn-primary btn-lg" href="/signin" role="button" style="height:50px;width:120px">Sign In</a>
-             
-
-              
-            </ul>
-          </div>
-        </div>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Sports World</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      <a class="nav-link" href="/FTeams">Teams</a>
+      <a class="nav-link" href="/Profile">Profile</a>
+      <a class="nav-link" href="/signin">Sign in</a>
+      <a class="nav-link" href="/signup">Sign Up</a>
       </div>
     </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
+  </div>
+</nav>
         
         
         </a>
@@ -318,23 +319,23 @@
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light" class="animate__animated animate__bounce"><b> Watching sports made easy, find places to watch sports</h1></b>
+          <h3 class="fw-light fs-1 text"> Watching sports made easy, find places to watch sports</h3>
 
     
 <br>
 <br>
-        <p class="lead text-body-secondary"> <b>Streaming services on Sports World</p></b>
+          <p class=" fs-3 text text-light lead">Streaming services on Sports World</p>
 
 
            {% for Site in Sites %}
-          <img src="{{Site.Logo}}" height="100" width="120">
+          <img src="{{Site.Logo}}" height="80" width="80">
           {%endfor%}
         </div>
       </div>
     </section>
     <div class="text-center">
     {% for League in Leagues %}
-         <a href="/League/{{League.ID}}"> <img src="{{League.Logo}}" height="100" width="120" style="border: black;"></a>
+         <a href="/League/{{League.ID}}"> <img src="{{League.Logo}}" height="65"></a>
           {%endfor%}
           <br>
           <br>
@@ -349,7 +350,8 @@
 
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {% for game in Games %}
+          {% for id, sites in Games | groupby('ID') %}
+          {% set game = sites[0] %}
           <div class="col">
             <div class="card shadow-sm">
             <div class="text-center">
@@ -370,8 +372,8 @@
                         </svg>
                       </button>
                       <ul class="dropdown-menu">
-                        {% for Site in Sites %}
-                        <li><a class="dropdown-item" href="{{Site["URL"]}}"><img src="{{Site["Logo"]}}" width="50"></a> </li>
+                        {% for Site in sites %}
+                        <li><a class="dropdown-item" href="{{Site["URL"]}}"><img src="{{Site["Sites.Logo"]}}" width="50"></a> </li>
                       
                         {%endfor%}
                       </ul>

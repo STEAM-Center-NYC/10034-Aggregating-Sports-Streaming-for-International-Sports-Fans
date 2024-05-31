@@ -84,9 +84,11 @@ def close_db(error):
 def post_feed():
     cursor = get_db().cursor()
     cursor.execute("""
-    SELECT * FROM `Games` 
-    INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
-    INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`; 
+        SELECT * FROM `Games` 
+        INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
+        INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`
+        LEFT JOIN `Leaugesite` ON t1.LeaugeID =  Leaugesite.LeaugeID
+        LEFT JOIN `Sites` ON  Leaugesite.SiteID = Sites.ID
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
@@ -96,7 +98,7 @@ def post_feed():
     cursor.close()
     return render_template("feed.html.jinja",Games=results,Sites=results2,Leagues=results3)
 
-@app.route('/FTeams/<int:Team_index>',methods=['POST'])
+@app.route('/FTeams/<int:Team_index>', methods=['POST'])
 def todo_complete(Team_index):
     ID = flask_login.current_user.id
     cursor = get_db().cursor()
@@ -150,13 +152,17 @@ def todo_delete(League_index):
     SELECT * FROM `Games` 
     INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
     INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`
-    WHERE t1.`LeagueID` = {League_index}
+    LEFT JOIN `Leaugesite` ON t1.LeaugeID =  Leaugesite.LeaugeID
+    LEFT JOIN `Sites` ON  Leaugesite.SiteID = Sites.ID
+    WHERE t1.`LeaugeID` = {League_index}
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
     results2 = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `League` """)
     results3=cursor.fetchall()
+    cursor.execute(f""" SELECT * FROM `League` WHERE `ID` = {League_index}""")
+    results4=cursor.fetchone()
     cursor.close()
-    return render_template("blah.html.jinja",Games=results,Sites=results2,Leagues=results3)
+    return render_template("blah.html.jinja",Games=results,Sites=results2,Leagues=results3,Leaguestuff=results4)
    

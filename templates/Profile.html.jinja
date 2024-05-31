@@ -33,10 +33,7 @@
 
 
   <style>
-    body {
-      background-color: #1A1A1D;
-      color: white;
-    }
+
 
     .navcustom {
       font-size: 30px;
@@ -128,65 +125,47 @@
       margin-right: 0px;
     }
 
-   a:link {
-  color: rgb(0, 68, 255);
-}
+  
 
 
-a:visited {
-  color: rgb(102, 22, 230);
-}
-
-
-a:hover {
-  color: rgb(255, 255, 255);
-}
-
-
-a:active {
-  color: blue;
-}
+ body {
+      background-color: !important;
+      font-family: "Rowdies", sans-serif  !important;
+    }
   </style>
 
 
   <!-- Custom styles for this template -->
   <link href="cover.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="d-flex h-100 text-center">
+<body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
 
 
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header data-bs-theme="dark">
-    <div class="collapse text-bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4>Profile</h4>
-           <p class="text-body-secondary">Welcome to your profile, here you will find all your favorite teams, your information & anything added here in the future.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4>Profile</h4>
-            <ul class="list-unstyled">
-               <li><a href="/signin" class="text-white">Sign In</a></li>
-              <li><a href="/signup" class="text-white">Sign Up</a></li>
-              <li><a href="/feed" class="text-white">Feed</a></li>
-              <li><a href="/FTeams" class="text-white">Favorite Teams</a></li>
-            </ul>
-          </div>
-        </div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Sports World</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      <a class="nav-link" href="/feed">Feed</a>
+      <a class="nav-link" href="/FTeams">Teams</a>
+      <a class="nav-link" href="/signin">Sign in</a>
+      <a class="nav-link" href="/signup">Sign Up</a>
       </div>
     </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" />
-          </svg>
+  </div>
+</nav>
         
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"

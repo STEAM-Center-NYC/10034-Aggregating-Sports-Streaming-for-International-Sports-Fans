@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
 <head>
   <script src="/docs/5.3/assets/js/color-modes.js"></script>
 
@@ -52,7 +54,7 @@
   <style>
     body {
       background-color: !important;
-      color: !important;
+      font-family: "Rowdies", sans-serif  !important;
     }
 
     .btn {
@@ -261,41 +263,30 @@
 
 
 
-  <header data-bs-theme="dark">
-    <div class="collapse text-bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4>Favorites</h4>
-            <p class="text-body-secondary">Favorite Teams here, all your favorite teams will be tracked and saved on your profile and you'll be notified immediately on all upcoming games for your favorite teams.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4>Profile</h4>
-            <ul class="list-unstyled">
-               <li><a href="/signin" class="text-white">Sign In</a></li>
-              <li><a href="/signup" class="text-white">Sign Up</a></li>
-              <li><a href="/Profile" class="text-white">Profile</a></li>
-              <li><a href="/feed" class="text-white">Feed</a></li>
-              
-            </ul>
-          </div>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand">Sports World</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/feed">Feed</a>
+          <a class="nav-link" href="/Profile">Profile</a>
+          <a class="nav-link" href="/signin">Sign in</a>
+          <a class="nav-link" href="/signup">Sign Up</a>
         </div>
       </div>
     </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" />
-          </svg>
-          <strong>Album</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-          aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </div>
+  </nav>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  </div>
+  </div>
   </header>
 
 
@@ -309,8 +300,8 @@
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">Feed</h1>
-          <p class="lead text-body-secondary"> Post everything you can and want!</p>
+          <h1 class="fw-light">Teams</h1>
+          <p class="lead text-body-secondary">Come here to see the teams and to favorite them to your Profile</p>
           </p>
         </div>
       </div>
@@ -324,29 +315,33 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {% for Team in Teams %}
           <div class="col">
-            <div class="card shadow-sm">
-            <img src={{Team.Logo}} width="120" height="120">
+            <div class=" card shadow-sm">
+            <div class="text-center">
+              <img class="text-center" src={{Team.Logo}} width="120" height="120">
             
               <div class="card-body">
                 <p class="card-text">{{ Team["Team"] }}</p>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-center align-items-center">
                   <div class="btn-group">
                     <form method="POST" action="/FTeams/{{Team['ID']}}">
-                      <input class="btn btn-secondary" type="submit" value="Favorite Team" style="background-color:#000000">
+                    <div>
+                      <input class="text-center btn btn-secondary" type="submit" value="Favorite Team">
+                    </div>
                     </form>
                     <div class="dropdown">
 
                     </div>
-
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-            {%endfor%}
+          {%endfor%}
         </div>
       </div>
-      </div>
+    </div>
+
 
 
 
@@ -360,8 +355,8 @@
       <p class="float-end mb-1">
         <a href="#" class="btn btn-primary btn-lg ">Back to top</a>
       </p>
-     
-          
+
+
     </div>
   </footer>
   <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
