@@ -15,6 +15,7 @@ Peacock =('https://www.peacocktv.com/')
 ABC = ("https://abc.com/")
 Disney_plus = ("https://www.disneyplus.com/")
 ESPN = ("https://www.espn.com/")
+Premier_League_Soccer = ("https://www.google.com/search?q=premier+league&rlz=1C5GCEM_en&oq=premier+l&gs_lcrp=EgZjaHJvbWUqDQgAEAAY4wIYsQMYgAQyDQgAEAAY4wIYsQMYgAQyCggBEC4YsQMYgAQyCggCEAAYsQMYgAQyCggDEAAYsQMYgAQyCggEEAAYsQMYgAQyBggFEEUYOTIGCAYQRRg9MgYIBxBFGD2oAgiwAgE&sourceid=chrome&ie=UTF-8#sie=lg;/g/11sk7gnh6c;2;/m/02_tc;mt;fp;1;;;")
 # result = requests.get(url).text
 
 # Dont delete commented code here since this was done to try and fool the anti-bot at grubhub.
@@ -31,11 +32,7 @@ ESPN = ("https://www.espn.com/")
 # This code is to tell the webdriver from selenium what browser to use. For example its using Chrome.
 driver = webdriver.Chrome()
 # driver.get is to tell the webdriver to what website to search and scan.
-driver.get(FuboTV)
-driver.get(ABC)
-driver.get(ESPN)
-driver.get(Disney_plus)
-driver.get(Peacock)
+driver.get(Premier_League_Soccer)
 
 # x and l are variables used in order to control the while loop statement thats used below, for example l its used as the limit of iterations
 # while x counts the amounts of iterations.(Right now its on 50 for testing purposes. Recommend to put it on 600 for an actual scan).
@@ -106,7 +103,7 @@ for items in divs:
             print(item_id)
             limit.append(item_id)
 
-            # 10038 find code
+            # 10034 find code
             # Item_Name = items.find('h3', {'data-telemetry-id' : "storeMenuItem.title"})
             # item_name = Item_Name.contents
 
@@ -124,7 +121,7 @@ for items in divs:
 
             cursor = connection.cursor()
             # this code is to make the bot automatically upload the data into the database. For now its manual input on restaurant and category but hopefully we could get the category automated.
-            cursor.execute(f'INSERT INTO `sites` (`sites_name`, `picture`, `team_id`, `user_id`) VALUES ("{sites_name[0]}", "{site_picture}", "1", "{sites_des[0]}", "1");')
+            cursor.execute(f'INSERT INTO `sites` (`sites_name`, `picture`, `team_id`, `user_id`) VALUES ( "1", "1");')
             connection.commit()
             # this execute is to be able to get the id of the item uploaded to be able to assign the id on the price.
             cursor.execute(f"SELECT `item_id` FROM `items` ORDER BY `item_id` DESC;")
@@ -132,7 +129,7 @@ for items in divs:
             id = cursor.fetchone()
             result = id['item_id']
             # this execute uploads the price and also uses the id collected before in order to connect it with the item.
-            cursor.execute(f'INSERT INTO `price` (`price_value`, `item_id`, `service_id`) VALUES ("{item_price[0]}", "{result}","1")')
+            cursor.execute(f'INSERT INTO `price` (`price_value`, `item_id`, `service_id`) VALUES ("{result}","1")')
             cursor.close()
             connection.commit()
             subItems+=1
