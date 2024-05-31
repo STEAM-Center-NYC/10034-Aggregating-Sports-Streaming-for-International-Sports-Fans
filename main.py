@@ -150,7 +150,7 @@ def todo_delete(League_index):
     SELECT * FROM `Games` 
     INNER JOIN `Teams` t1 ON `Games`.Team1 = t1.`ID` 
     INNER JOIN `Teams` t2 ON `Games`.Team2 = t2.`ID`
-    WHERE t1.`LeagueID` = {League_index}
+    WHERE t1.`LeaugeID` = {League_index}
     """)
     results = cursor.fetchall()
     cursor.execute(""" SELECT * FROM `Sites` """)
